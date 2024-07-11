@@ -6,6 +6,7 @@ import { FindAllUsersUseCase } from './use-cases/find-all-users.use-case';
 import { FindOneUserUseCase } from './use-cases/find-one-user.use-case';
 import { UpdateUserUseCase } from './use-cases/update-user.use-case';
 import { RemoveUserUseCase } from './use-cases/remove-user.use-case';
+import { FindUserUseCase } from './use-cases/find-email-user.use-case';
 
 @Controller('users')
 export class UsersController {
@@ -18,6 +19,9 @@ export class UsersController {
 
   @Inject(FindOneUserUseCase)
   private readonly findOneUserUseCase: FindOneUserUseCase;
+
+  @Inject(FindUserUseCase)
+  private readonly findUserUseCase: FindUserUseCase;
   
   @Inject(UpdateUserUseCase)
   private readonly updateUserUseCase: UpdateUserUseCase;
@@ -38,6 +42,11 @@ export class UsersController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.findOneUserUseCase.execute(+id);
+  }
+
+  @Post(':email')
+  findUser(@Param('email') email: string) {
+    return this.findUserUseCase.execute(email);
   }
 
   @Patch(':id')

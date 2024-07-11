@@ -8,6 +8,7 @@ import { RemoveUserUseCase } from './use-cases/remove-user.use-case';
 import { UserRepository } from './repositories/user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { FindUserUseCase } from './use-cases/find-email-user.use-case';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
@@ -19,11 +20,13 @@ import { User } from './entities/user.entity';
     FindOneUserUseCase,
     UpdateUserUseCase,
     RemoveUserUseCase,
+    FindUserUseCase,
     {
       provide: 'IUserRepository',
       useExisting: UserRepository,
     },
   ],
+  exports: [UserRepository, FindUserUseCase]
 })
 
 export class UsersModule {}

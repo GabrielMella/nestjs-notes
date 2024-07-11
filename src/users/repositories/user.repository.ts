@@ -28,6 +28,12 @@ export class UserRepository implements IUserRepository {
     });
   }
 
+  findByEmail(email: string): Promise<User | null> {
+    return this.typeOrmRepo.findOneOrFail({
+      where: { email },
+    });
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto): Promise<void> {
     await this.typeOrmRepo.update(id, updateUserDto);
   }

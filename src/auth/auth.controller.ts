@@ -6,7 +6,7 @@ import { AuthPayloadDto } from './dto/auth.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login')
+  @Post()
   login(@Body() authPayloadDto: AuthPayloadDto) {
     return this.authService.Authenticate(authPayloadDto);
   }
