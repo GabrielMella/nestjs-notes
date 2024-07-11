@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '../repositories/user.repository.interface';
-import { User } from '../entities/user.entity';
 
 @Injectable()
 export class RemoveUserUseCase {
