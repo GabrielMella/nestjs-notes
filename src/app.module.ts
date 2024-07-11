@@ -4,6 +4,10 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
+import { TodoModule } from './todo/todo.module';
+import { Todo } from './todo/entities/todo.entity';
+import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -15,12 +19,14 @@ import { User } from './users/entities/user.entity';
       password: 'root',
       database: 'notes',
       entities: [
-        //__dirname + '/**/*.entity{.ts,.js}'
-        User
+        User,
+        Todo,
       ],
       synchronize: true,
     }),
-    UsersModule
+    UsersModule,
+    TodoModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
