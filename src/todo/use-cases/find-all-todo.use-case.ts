@@ -9,7 +9,7 @@ export class FindAllTodoUseCase {
     private readonly todoRepository: ITodoRepository
   ) {}
 
-  execute(): Promise<Todo[]> {
-    return this.todoRepository.findAll();
+  execute(userid: number): Promise<Todo[]> {
+    return this.todoRepository.findAll(userid);
   }
 }

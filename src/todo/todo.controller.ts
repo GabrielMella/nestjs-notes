@@ -30,21 +30,20 @@ export class TodoController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  create(@Body() createTodoDto: CreateTodoDto, @Req() req: Request) {
-    const user = req.user as User;
-    return this.createTodoUseCase.execute(createTodoDto, user);
+  create(@Body() createTodoDto: CreateTodoDto) {
+    return this.createTodoUseCase.execute(createTodoDto);
   }
 
-  @Get()
+  @Get(':userid')
   @UseGuards(JwtAuthGuard)
-  findAll() {
-    return this.findAllTodoUseCase.execute();
+  findAll(@Param('userid') userid: string) {
+    return this.findAllTodoUseCase.execute(+userid);
   }
 
-  @Get(':id')
+  @Get(':id/:userid')
   @UseGuards(JwtAuthGuard)
-  findOne(@Param('id') id: string) {
-    return this.findOneTodoUseCase.execute(+id);
+  findOne(@Param('id') id: string, @Param('userid') userid: string) {
+    return this.findOneTodoUseCase.execute(+id, +userid);
   }
 
   @Patch(':id')

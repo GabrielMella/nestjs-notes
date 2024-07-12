@@ -3,7 +3,6 @@ import { AuthPayloadDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { FindUserUseCase } from 'src/users/use-cases/find-email-user.use-case';
-import { ConfigService } from '@nestjs/config';
 
 
 @Injectable()
@@ -25,6 +24,8 @@ export class AuthService {
 
       return {
         access_token: this.jwtService.sign({ email: user?.email }),
+        userid: user?.id,
+        username: user?.name
       };
 
     } catch(e) {

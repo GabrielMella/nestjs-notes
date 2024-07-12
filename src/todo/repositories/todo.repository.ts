@@ -19,13 +19,15 @@ export class TodoRepository implements ITodoRepository {
       return await this.typeOrmRepo.save(todo);
   }
   
-  findAll(): Promise<Todo[]> {
-    return this.typeOrmRepo.find();
+  findAll(userid: number): Promise<Todo[]> {
+    return this.typeOrmRepo.find({
+      where: {userid: userid}
+    });
   }
   
-  findById(id: number): Promise<Todo | null> {
+  findById(id: number, userid: number): Promise<Todo | null> {
     return this.typeOrmRepo.findOneOrFail({
-      where: { id },
+      where: { id: id, userid: userid },
     });
   }
   
