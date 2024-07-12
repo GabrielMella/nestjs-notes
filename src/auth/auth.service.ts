@@ -10,15 +10,14 @@ import { ConfigService } from '@nestjs/config';
 export class AuthService {
   constructor(
     private readonly findUserByEmail: FindUserUseCase,
-    private jwtService: JwtService,
-    private configService: ConfigService,
+    private jwtService: JwtService
   ) {}
 
-  async Authenticate(authPayloadDto: AuthPayloadDto) {
+  async authenticate({email, password}: AuthPayloadDto) {
     try {
-      const user = await this.findUserByEmail.execute(authPayloadDto.email);
+      const user = await this.findUserByEmail.execute(email);
 
-      const passwordMatch = await bcrypt.compare(authPayloadDto.password,user?.password);
+      const passwordMatch = await bcrypt.compare(password, user?.password);
   
       if (!passwordMatch) {
         throw new UnauthorizedException();

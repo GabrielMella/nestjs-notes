@@ -1,7 +1,10 @@
+import { User } from "src/users/entities/user.entity";
 import { 
     Column,
     CreateDateColumn,
     Entity,
+    JoinColumn,
+    ManyToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
@@ -31,7 +34,14 @@ export class Todo {
         default: TodoStatus.Pending,
         enum: TodoStatus
     })
-    status: TodoStatus
+    status: TodoStatus;
+
+    @Column()
+    userid: number;
+
+    @ManyToOne(() => User, user => user.todos)
+    @JoinColumn({ name: 'userid' })
+    user: User;
 
     @CreateDateColumn({ type: 'datetime' })
     created_at: Date;
