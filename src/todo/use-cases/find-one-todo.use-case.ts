@@ -9,7 +9,7 @@ export class FindOneTodoUseCase {
     private readonly todoRepository: ITodoRepository
   ) {}
 
-  execute(id: number): Promise<Todo | null> {
-    return this.todoRepository.findById(id);
+  execute(id: number, userid: number): Promise<Todo | null> {
+    return this.todoRepository.findById(id, userid);
   }
 }

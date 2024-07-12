@@ -4,4 +4,5 @@ export class CreateTodoDto {
     title: string;
     description: string;
     status: TodoStatus;
+    userid: number;
 }

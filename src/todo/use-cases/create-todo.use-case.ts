@@ -1,4 +1,4 @@
-import { Injectable, Inject } from "@nestjs/common";
+import { Injectable, Inject, Logger } from "@nestjs/common";
 import { CreateTodoDto } from "../dto/create-todo.dto";
 import { ITodoRepository } from "../repositories/todo.repository.interface";
 import { Todo } from "../entities/todo.entity";
@@ -10,7 +10,7 @@ export class CreateTodoUseCase {
         private readonly todoRepository: ITodoRepository
     ) {}
 
-    async execute(createTodoDto: CreateTodoDto): Promise<Todo> {
+    execute(createTodoDto: CreateTodoDto): Promise<Todo> {
         return this.todoRepository.create(createTodoDto);
     }
-}
+} 

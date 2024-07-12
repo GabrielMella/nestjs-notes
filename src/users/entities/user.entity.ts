@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Todo } from "src/todo/entities/todo.entity";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -16,6 +17,9 @@ export class User {
 
     @Column()
     isAdmin: boolean;
+
+    @OneToMany(() => Todo, todo => todo.user)
+    todos: Todo[];
 
     @CreateDateColumn({ type: 'datetime' })
     created_at: Date;

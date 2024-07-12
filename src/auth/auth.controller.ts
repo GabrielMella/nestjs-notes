@@ -1,13 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Req, Logger } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthPayloadDto } from './dto/auth.dto';
+import { LocalGuard } from './guards/local.guard';
+import { Request } from 'express';
+import { JwtAuthGuard } from './guards/jwt.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post()
-  login(@Body() authPayloadDto: AuthPayloadDto) {
-    return this.authService.Authenticate(authPayloadDto);
+  @UseGuards(LocalGuard)
+  login(@Req() req: Request) {
+    return req.user;
+  }
+
+  @Get('profile')
+  @UseGuards(JwtAuthGuard)
+  getUserId(@Req() req: Request) {
+    return req.user;
   }
 }
