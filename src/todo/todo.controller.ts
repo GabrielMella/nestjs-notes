@@ -7,7 +7,6 @@ import { FindOneTodoUseCase } from './use-cases/find-one-todo.use-case';
 import { UpdateTodoUseCase } from './use-cases/update-todo.use-case';
 import { RemoveTodoUseCase } from './use-cases/remove-todo.use-case';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { User } from 'src/users/entities/user.entity';
 import { Request } from 'express';
 
 @Controller('todo')
