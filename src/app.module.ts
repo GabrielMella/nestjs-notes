@@ -7,22 +7,31 @@ import { User } from './users/entities/user.entity';
 import { TodoModule } from './todo/todo.module';
 import { Todo } from './todo/entities/todo.entity';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
+function buildTypeOrmOptions(config) {
+  return {
+    type: 'mysql',
+    host: config.get('DB_HOST', 'db'),
+    port: config.get('DB_PORT', 3306),
+    username: config.get('DB_USERNAME', 'root'),
+    password: config.get('DB_PASSWORD'),
+    database: config.get('DB_DATABASE', 'notes'),
+    entities: [
+      User,
+      Todo,
+    ],
+    synchronize: true,
+  };
+}
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'db',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'notes',
-      entities: [
-        User,
-        Todo,
-      ],
-      synchronize: true,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: buildTypeOrmOptions,
     }),
     UsersModule,
     TodoModule,
