@@ -3,9 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.entity';
 import { TodoModule } from './todo/todo.module';
-import { Todo } from './todo/entities/todo.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 
@@ -18,10 +16,7 @@ import { ConfigModule } from '@nestjs/config';
       username: 'root',
       password: 'root',
       database: 'notes',
-      entities: [
-        User,
-        Todo,
-      ],
+      autoLoadEntities: true,
       synchronize: true,
     }),
     UsersModule,
