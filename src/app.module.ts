@@ -11,12 +11,13 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'db',
       port: 3306,
       username: 'root',
-      password: 'root',
+      password: process.env.DB_PASSWORD,
       database: 'notes',
       entities: [
         User,
