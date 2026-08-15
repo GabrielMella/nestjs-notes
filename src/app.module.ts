@@ -22,7 +22,7 @@ import { ConfigModule } from '@nestjs/config';
         User,
         Todo,
       ],
-      synchronize: true,
+      synchronize: process.env.NODE_ENV !== 'production',
     }),
     UsersModule,
     TodoModule,
