@@ -16,6 +16,7 @@ export class CreateUserUseCase {
         const newUserDto = {
             ...createUserDto,
             password: hashedPassword,
+            isAdmin: false,
         };
 
         return this.userRepository.create(newUserDto);
